@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Create Product</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f7f7f7;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            padding-top: 50px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: #0056b3;
+            border: none;
+        }
+
+            .btn-primary:hover {
+                background-color: #004494;
+            }
+
+        .header {
+            background-color: #4ec92c;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .footer {
+            background-color: #4ec92c;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" style="height:50px; vertical-align: middle; margin-right: 10px;">
+        <h2>My Insurance Company</h2>
+    </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h1>Create Insurance Product:</h1>
+                <form action="/create_product" method="post">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter name">
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="text" class="form-control" id="price" name="price" placeholder="Enter price">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 Insurance Co.</p>
+    </div>
+</body>
+</html>

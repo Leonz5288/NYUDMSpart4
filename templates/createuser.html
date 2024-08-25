@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Create Users</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f7f7f7;
+            font-family: Arial, sans-serif;
+        }
+
+        .header, .footer {
+            background-color: #4ec92c;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+        }
+
+        .container {
+            padding: 30px 15px;
+            max-width: 800px;
+            margin: auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-wrapper {
+            position: relative;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .form-group input {
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background-color: #0056b3;
+            border: none;
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        .btn-primary:hover {
+            background-color: #004494;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .checkbox-label input {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+        }
+
+        .footer {
+            margin-top: 30px;
+        }
+
+        .invalid-feedback {
+            font-size: 14px;
+            color: #e74c3c;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>Create Users</h2>
+    </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h1 class="text-center mb-4">Create User</h1>
+                <form action="/create_user" method="post" class="form-wrapper" onsubmit="return validateForm()">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" onblur="validateUsername()" required>
+                                <div id="username-error" class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" onblur="validatePassword()" required>
+                                <div id="password-error" class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="profession">Profession</label>
+                                <input type="text" class="form-control" id="profession" name="profession" placeholder="Enter profession">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="ssn">Social Security Number (SSN)</label>
+                                <input type="text" class="form-control" id="ssn" name="ssn" placeholder="Enter SSN">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="income">Income</label>
+                                <input type="text" class="form-control" id="income" name="income" placeholder="Enter income" onblur="validateIncome()" required>
+                                <div id="income-error" class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="age">Age</label>
+                                <input type="text" class="form-control" id="age" name="age" placeholder="Enter age" onblur="validateAge()" required>
+                                <div id="age-error" class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="height">Height (cm)</label>
+                                <input type="number" class="form-control" id="height" name="height" placeholder="Enter height">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="weight">Weight (kg)</label>
+                                <input type="number" class="form-control" id="weight" name="weight" placeholder="Enter weight">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="hip_circumference">Hip Circumference (cm)</label>
+                                <input type="number" class="form-control" id="hip_circumference" name="hip_circumference" placeholder="Enter hip circumference">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="systolic_bp">Systolic Blood Pressure (mmHg)</label>
+                                <input type="number" class="form-control" id="systolic_bp" name="systolic_bp" placeholder="Enter systolic blood pressure">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="diastolic_bp">Diastolic Blood Pressure (mmHg)</label>
+                                <input type="number" class="form-control" id="diastolic_bp" name="diastolic_bp" placeholder="Enter diastolic blood pressure">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="pulse">Pulse (beats per minute)</label>
+                                <input type="number" class="form-control" id="pulse" name="pulse" placeholder="Enter pulse">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="cholesterol">Cholesterol (mg/dL)</label>
+                                <input type="number" class="form-control" id="cholesterol" name="cholesterol" placeholder="Enter cholesterol">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="blood_sugar">Blood Sugar (mg/dL)</label>
+                                <input type="number" class="form-control" id="blood_sugar" name="blood_sugar" placeholder="Enter blood sugar">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="hdl">HDL (mg/dL)</label>
+                                <input type="number" class="form-control" id="hdl" name="hdl" placeholder="Enter HDL">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="ldl">LDL (mg/dL)</label>
+                                <input type="number" class="form-control" id="ldl" name="ldl" placeholder="Enter LDL">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="triglycerides">Triglycerides (mg/dL)</label>
+                                <input type="number" class="form-control" id="triglycerides" name="triglycerides" placeholder="Enter triglycerides">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="uric_acid">Uric Acid (mg/dL)</label>
+                                <input type="number" class="form-control" id="uric_acid" name="uric

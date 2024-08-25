@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="User-friendly insurance quote generation and management.">
+    <title>Users and Insurance</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f7f7f7;
+            font-family: Arial, sans-serif;
+        }
+
+        .header, .footer {
+            background-color: #4ec92c;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .footer {
+            margin-top: 20px;
+        }
+
+        .btn-primary {
+            background-color: #0056b3;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #004494;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .user-health-info p {
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .button-group .btn {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .button-group .btn:last-child {
+            margin-right: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Welcome to Insurance Co.</h1>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <!-- User Health Information -->
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">User Health Information</h2>
+                        <div class="user-health-info">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p><strong>User:</strong> {{ current_user.username }}</p>
+                                    <p><strong>Age:</strong> {{ current_user.age }} years</p>
+                                    <p><strong>Income:</strong> ${{ current_user.income }}</p>
+                                    <p><strong>Profession:</strong> {{ current_user.profession }}</p>
+                                    <p><strong>Education:</strong> {{ current_user.education_level }}</p>
+                                    <p><strong>Marital Status:</strong> {{ current_user.marital_status }}</p>
+                                    <p><strong>SSN:</strong> {{ current_user.ssn }}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p><strong>Height:</strong> {{ current_user.height }} cm</p>
+                                    <p><strong>Weight:</strong> {{ current_user.weight }} kg</p>
+                                    <p><strong>Systolic BP:</strong> {{ current_user.systolic_bp }} mmHg</p>
+                                    <p><strong>Diastolic BP:</strong> {{ current_user.diastolic_bp }} mmHg</p>
+                                    <p><strong>Pulse:</strong> {{ current_user.pulse }} bpm</p>
+                                    <p><strong>Cholesterol:</strong> {{ current_user.cholesterol }} mg/dL</p>
+                                    <p><strong>Blood Sugar:</strong> {{ current_user.blood_sugar }} mg/dL</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p><strong>HDL:</strong> {{ current_user.hdl }} mg/dL</p>
+                                    <p><strong>LDL:</strong> {{ current_user.ldl }} mg/dL</p>
+                                    <p><strong>Triglycerides:</strong> {{ current_user.triglycerides }} mg/dL</p>
+                                    <p><strong>Uric Acid:</strong> {{ current_user.uric_acid }} mg/dL</p>
+                                    <p><strong>Waist Circumference:</strong> {{ current_user.waist_circumference }} cm</p>
+                                    <p><strong>Hip Circumference:</strong> {{ current_user.hip_circumference }} cm</p>
+                                    <p><strong>Chronic Illness:</strong> {{ 'Yes' if current_user.has_chronic_illness else 'No' }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <form action="/generate_quote" method="post" style="margin-top: 20px;">
+                            <input type="hidden" name="user_id" value="{{ current_user.id }}">
+                            <div class="form-group">
+                                <label for="product_id">Please select product:</label>
+                                <select name="product_id" class="form-control" id="product_id">
+                                    {% for p in products %}
+                                    <option value="{{p.id}}">{{p.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="button-group">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <a href="{{ url_for('show_update') }}" class="btn btn-secondary">Update</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Product Information -->
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">Product Information</h2>
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for product in products %}
+                                <tr>
+                                    <td>{{ product.name }}</td>
+                                    <td>${{ product.price }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Your Quotes -->
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">Your Quotes</h2>
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Product</th>
+                                    <th scope="col">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for q in quotes %}
+                                <tr>
+                                    <td>
+                                        {% for p in products %}
+                                        {% if q.product_id == p.id %}
+                                        {{ p.name }}
+                                        {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                    <td>${{ q.amount }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2024 Insurance Co. All rights reserved.</p>
+    </div>
+
+</body>
+
+</html>
